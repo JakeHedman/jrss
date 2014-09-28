@@ -34,8 +34,6 @@ def get_conf():
 
 CONF = get_conf()
 
-feedparser.USER_AGENT = "uTorrent 1.6.1.0 uTorrent/1610"
-
 def download(item):
     # Remove items not in shows
     for show in CONF['shows']:
