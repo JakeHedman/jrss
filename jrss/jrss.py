@@ -5,6 +5,7 @@ from opster import command
 import feedparser
 import os
 import requests
+import time
 
 HOME = os.getenv('USERPROFILE') or os.getenv('HOME')
 CONF_PATH = os.path.join(HOME, '.jrssrc')
@@ -51,13 +52,18 @@ def download(item):
     for exclude in CONF['exclude']:
         if exclude.lower() in item['title'].lower():
             return
-
-    if item['title'] + ".torrent" in os.listdir(CONF['torrent_files_path']):
-        return
     
-    torrentpath = os.path.join(CONF['torrent_files_path'],
-                               item['title'] + '.torrent')
-    with open(torrentpath, 'w+') as fh:
+    torrent_path = os.path.join(CONF['torrent_files_path'],
+                                item['title'] + '.torrent')
+
+    torrent_memory_path = os.path.join(CONF['torrent_files_path'],
+                                '.' + item['title'] + '.torrent.mem')
+    
+    if os.path.exists(torrent_memory_path):
+        return
+
+    open(torrent_memory_path, 'w+')
+    with open(torrent_path, 'w+') as fh:
         res = requests.get(item['link'])
         if not res.ok:
             return
@@ -69,6 +75,13 @@ def download(item):
 
 @command()
 def main():
+    for filename in os.listdir(CONF['torrent_files_path']):
+        if filename[0] == "." and filename.endswith('.torrent.mem'):
+            path = os.path.join(CONF['torrent_files_path'], filename)
+            creation_time = os.path.getctime(path)
+            yesterday = time.time()-60*60*24
+            if creation_time < yesterday:
+                os.unlink(path)
     f = feedparser.parse(CONF['rss_url'])
     for item in f['entries']:
         download(item)
