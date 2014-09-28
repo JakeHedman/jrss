@@ -1,3 +1,4 @@
+#coding: utf-8
 from setuptools import setup
 
 setup(
@@ -6,6 +7,7 @@ setup(
     packages = ['jrss'],
     description='Torrent RSS downloader',
     author='Oskar Hallström',
+    author_email='ooskar@ooskar.com',
     maintainer='Jakob Hedman',
     maintainer_email='jakob@hedman.email',
     license='GNU GPLv3',
