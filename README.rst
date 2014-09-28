@@ -1,6 +1,7 @@
 Installation
 ------------
 ::
+
     pip install jrss
 
 Config
@@ -8,6 +9,7 @@ Config
 -  Run jrss
 
 ::
+
     $ jrss
 
 -  Edit ``~/.jrssrc``
@@ -15,5 +17,6 @@ Config
 -  Setup cron to execute the script every minute
 
 ::
+
     $ crontab -e
     *  *  *  *  *  jrss
