@@ -20,6 +20,7 @@ setup(
         'opster',
         'configobj',
         'feedparser',
+        'requests',
     ],
     long_description = open('README.rst').read(),
 )
