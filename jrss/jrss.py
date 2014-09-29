@@ -83,5 +83,5 @@ def main():
             if creation_time < yesterday:
                 os.unlink(path)
     f = feedparser.parse(CONF['rss_url'])
-    for item in f['entries']:
+    for item in f['entries'] or item.replace('.', '_') in f['entries']:
         download(item)
