@@ -38,7 +38,10 @@ CONF = get_conf()
 def download(item):
     # Remove items not in shows
     for show in CONF['shows']:
-        if show.lower() in item['title'].lower():
+        show_low = show.lower()
+        show_under = show_low.replace('.', '_')
+        title = item['title'].lower()
+        if show_low in title or show_under in title:
             break
     else:
         return
@@ -83,5 +86,5 @@ def main():
             if creation_time < yesterday:
                 os.unlink(path)
     f = feedparser.parse(CONF['rss_url'])
-    for item in f['entries'] or item.replace('.', '_') in f['entries']:
+    for item in f['entries']:
         download(item)
