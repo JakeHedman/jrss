@@ -21,7 +21,7 @@ def write_template_config():
     conf['shows'] = ['the.big.bang.theory', 'modern.family']
     conf['exclude'] = ['german', 'dubbed']
     conf['filter'] = ['720p']
-    conf['rss_url'] = "http://example.com/rss?passkey=secret"
+    conf['rss_url'] = "http://example.com/rss?passkey=secret,key"
 
     conf.write()
 
