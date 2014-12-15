@@ -67,7 +67,7 @@ def download(item):
 
     open(torrent_memory_path, 'w+')
     with open(torrent_path, 'w+') as fh:
-        res = requests.get(item['link'])
+        res = requests.get(item['link'], verify=False)
         if not res.ok:
             return
 
